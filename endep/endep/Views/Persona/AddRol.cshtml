@@ -1,0 +1,34 @@
+﻿@model endep.Models.Persona.Persona
+@{
+    ViewBag.Title = "AddRol";
+}
+
+<h2>Agregar rol al usuario: @Model.Name</h2>
+<h3>@ViewBag.Error</h3>
+
+@using (Html.BeginForm("AddRol", "Persona", new { userId = Model.UserId }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <div class="form-group">
+            @Html.LabelFor(model => model.Rol.RolId, "RoleID", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("RoleID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Rol.RolId, "", new { @class = "text-danger" })
+            </div>                                                                                                                                                                      
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-12">
+                <p>
+                    <input type="submit" value="Agregar rol" class="btn btn-success" />
+                    @Html.ActionLink("Volver", "Roles", new { userId = Model.UserId }, new { @class = "btn btn-info" })
+                </p>
+            </div>
+        </div>
+
+        
+        @*<input type="submit" value="Agregar Rol" class="btn btn-success" />*@
+    </div>
+}

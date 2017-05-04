@@ -83,6 +83,6 @@ C:\Users\Soporte\Source\Repos\endep\endep\endep\bin\es\Microsoft.Owin.Security.F
 C:\Users\Soporte\Source\Repos\endep\endep\endep\bin\es\Microsoft.Owin.Security.Google.resources.dll
 C:\Users\Soporte\Source\Repos\endep\endep\endep\bin\es\Microsoft.Owin.Security.Twitter.resources.dll
 C:\Users\Soporte\Source\Repos\endep\endep\endep\bin\es\Microsoft.Owin.Security.MicrosoftAccount.resources.dll
-C:\Users\Soporte\Source\Repos\endep\endep\endep\obj\Debug\endep.csprojResolveAssemblyReference.cache
 C:\Users\Soporte\Source\Repos\endep\endep\endep\obj\Debug\endep.dll
 C:\Users\Soporte\Source\Repos\endep\endep\endep\obj\Debug\endep.pdb
+C:\Users\Soporte\Source\Repos\endep\endep\endep\obj\Debug\endep.csprojResolveAssemblyReference.cache

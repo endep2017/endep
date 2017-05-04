@@ -3,12 +3,15 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel;
+using System;
 
 namespace endep.Models
 {
     // Puede agregar datos del perfil del usuario agregando más propiedades a la clase ApplicationUser. Para más información, visite http://go.microsoft.com/fwlink/?LinkID=317594.
     public class ApplicationUser : IdentityUser
-    {
+    {  
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Tenga en cuenta que el valor de authenticationType debe coincidir con el definido en CookieAuthenticationOptions.AuthenticationType
@@ -16,6 +19,11 @@ namespace endep.Models
             // Agregar aquí notificaciones personalizadas de usuario
             return userIdentity;
         }
+        public string Nombres { set; get; }
+        public string Apellidos { set; get; }     
+        public decimal Identificacion { set; get; }     
+        //blic DateTime FechaNacimiento { set; get; }
+        public string Sexo { set; get; }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>

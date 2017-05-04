@@ -30,7 +30,7 @@ namespace endep
             //Crear permiso al usuario Administrador por defecto al ejecutar el proyecto
             AddPermisoSuperUser(db);
             //Cerrar la base de datos
-            db.Dispose(); 
+            db.Dispose();
         }
 
         #region Métodos
@@ -47,7 +47,7 @@ namespace endep
                 user = new ApplicationUser
                 {
                     UserName = "endep2017@hotmail.com",
-                    Email = "endep2017@hotmail.com"                    
+                    Email = "endep2017@hotmail.com"
                 };
                 userManager.Create(user, "endep2017");
             }
@@ -114,10 +114,6 @@ namespace endep
         }
 
         #endregion Métodos;
-
-
     }
-
-
 }
 

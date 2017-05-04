@@ -1,0 +1,21 @@
+﻿@model endep.Models.Persona.Persona
+@{
+    ViewBag.Title = "Roles";
+}
+
+<h2>Roles para el usuario: @Model.Name</h2>
+
+<p>
+    @Html.ActionLink("Agregar Rol", "AddRol", new { userId = Model.UserId }, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Listar usuarios", "Index", new { }, new { @class = "btn btn-info" })
+</p>
+<table class="table">
+    @for (int i = 0; i < Model.Roles.Count; i++)
+    {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => Model.Roles[i].Name)</td>
+            <td>@Html.ActionLink("Eliminar", "Delete", new { userId = Model.UserId, rolId = Model.Roles[i].RolId }, new { @class = "btn btn-danger" })</td>
+        </tr>      
+    }
+</table>
+
