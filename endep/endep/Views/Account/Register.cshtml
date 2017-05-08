@@ -1,41 +1,49 @@
 ﻿@model endep.Models.RegisterViewModel
 @{
-    ViewBag.Title = "Registrarse";
+    ViewBag.Title = "Crear cuenta";
 }
 
-<h2>@ViewBag.Title.</h2>
+<div class="animate form login_form">
+    <section class="login_content"> 
+        
+        <h4>Crear cuenta</h4>  
 
-@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-{
-    @Html.AntiForgeryToken()
-    <h4>Cree una cuenta nueva.</h4>
-    <hr />
-    @Html.ValidationSummary("", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-default" value="Registrarse" />
-        </div>
-    </div>
-}
+            @using (Html.BeginForm("Register", "Account", FormMethod.Post, new {role = "form" }))
+                {
+                    @Html.AntiForgeryToken()      
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+                    @Html.ValidationSummary("", new { @class = "text-danger" })
+
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            @Html.TextBoxFor(m => m.Nombre, new { @class = "form-control", @placeholder = "Primer Nombre" })
+                        </div>
+
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = "Email" })
+                        </div>            
+                        
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Password" })
+                        </div>         
+                        
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", @placeholder = "Confirmar Password" })
+                        </div>      
+        
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" class="btn btn-info" value="Registrarse" />
+                        </div>
+                        <p class="text-left">
+                            @Html.ActionLink("Ya tengo una cuenta", "Login")
+                        </p>
+
+            }           
+                <div class="clearfix"></div>
+                <div class="separator">                   
+                    <div>
+                        <h1><i class="fa fa-paw"></i> @Html.ActionLink("Encuentros Deportivos", "Index", "Home")</h1>
+                        <p><a> &copy; @DateTime.Now.Year - Encuentos Deportivos</a></p>
+                    </div>
+                </div>            
+        </section>
+    </div> 

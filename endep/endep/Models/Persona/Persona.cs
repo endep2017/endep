@@ -25,6 +25,7 @@ namespace endep.Models.Persona
 
         [Required(ErrorMessage = "Debe ingresar el número de identificación")]
         [DisplayName("Identificación")]
+        [DisplayFormat(DataFormatString ="{0:C0}", ApplyFormatInEditMode = false)]
         public decimal Identificacion { set; get; }
 
         //[Required(ErrorMessage = "Debe ingresar la fecha de nacimiento")]
@@ -35,6 +36,18 @@ namespace endep.Models.Persona
 
         public Rol Rol { set; get; }
         public List<Rol> Roles { set; get; }
+
+
+        //[Required]
+        //[StringLength(100, ErrorMessage = "El número de caracteres de {0} debe ser al menos {2}.", MinimumLength = 6)]
+        //[DataType(DataType.Password)]
+        //[Display(Name = "Contraseña")]
+        //public string Password { get; set; }
+
+        //[DataType(DataType.Password)]
+        //[Display(Name = "Confirmar contraseña")]
+        //[Compare("Password", ErrorMessage = "La contraseña y la contraseña de confirmación no coinciden.")]
+        //public string ConfirmPassword { get; set; }
 
 
         #endregion

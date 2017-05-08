@@ -10,7 +10,7 @@ namespace endep.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            return View("Index","_LayoutInicio");
         }
 
         public ActionResult About()

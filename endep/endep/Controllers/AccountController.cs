@@ -9,6 +9,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using endep.Models;
+using endep.Models.Persona;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace endep.Controllers
 {
@@ -58,7 +60,7 @@ namespace endep.Controllers
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
-            return View();
+            return View("Login", "_LayoutLogin");
         }
 
         //
@@ -70,7 +72,7 @@ namespace endep.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View(model);
+                return View("Login","_LayoutLogin", model);
             }
 
             // No cuenta los errores de inicio de sesión para el bloqueo de la cuenta
@@ -87,7 +89,7 @@ namespace endep.Controllers
                 case SignInStatus.Failure:
                 default:
                     ModelState.AddModelError("", "Intento de inicio de sesión no válido.");
-                    return View(model);
+                    return View("Login", "_LayoutLogin", model);
             }
         }
 
@@ -139,7 +141,7 @@ namespace endep.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            return View();
+            return View("Register", "_LayoutLogin");
         }
 
         //
@@ -151,25 +153,95 @@ namespace endep.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, Nombres = model.Nombre };
                 var result = await UserManager.CreateAsync(user, model.Password);
+
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+
+
+
+                    //Crear el rol del usuario, por defecto el rol asignado es "Jugador"
+
+                    ApplicationDbContext db = new ApplicationDbContext();
+
+                    //Obtener los usuarios            
+                    var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
+                    //Obtener los roles
+                    var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(db));                    
+
+                    if (!userManager.IsInRole(user.Id, "Jugador"))
+                    {
+                        userManager.AddToRole(user.Id, "Jugador");
+                    }
+
+                    string valor = user.Id;
+
+                    bool resul = false;  
+
+
+                    PersonaDirector persona = new PersonaDirector();                  
+                    PersonaBuilder jugador = new Jugador();
+
+                    persona.setPersonaBuilder(jugador);
+                    resul = persona.construirRol(user.Id);
+
+                    if (resul)
+                    {
+                        return RedirectToAction("Index");
+                    }
+
+
+
+
+
+
+
+                   
+
+                    //var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
+                    //var users = userManager.Users.ToList();
+                    //var usuario = users.Find(u => u.Id == User.Identity.GetUserId());
+
+
+
+
+                    //var userView = new Persona
+                    //{
+                    //    Email = user.Email,
+                    //    Name = user.UserName,
+                    //    UserId = user.Id,
+                    //    Nombres = user.Nombres,
+                    //    Apellidos = user.Apellidos
+                    //};
+                    //return View(userView);
+
+
+
+                
+
+
+
+
+
+
+
+
+
                     // Para obtener más información sobre cómo habilitar la confirmación de cuenta y el restablecimiento de contraseña, visite http://go.microsoft.com/fwlink/?LinkID=320771
                     // Enviar correo electrónico con este vínculo
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirmar cuenta", "Para confirmar la cuenta, haga clic <a href=\"" + callbackUrl + "\">aquí</a>");
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Inicio");
                 }
                 AddErrors(result);
             }
 
             // Si llegamos a este punto, es que se ha producido un error y volvemos a mostrar el formulario
-            return View(model);
+            return View("Register", "_LayoutLogin", model);
         }
 
         //
@@ -449,7 +521,7 @@ namespace endep.Controllers
             {
                 return Redirect(returnUrl);
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Inicio");
         }
 
         internal class ChallengeResult : HttpUnauthorizedResult

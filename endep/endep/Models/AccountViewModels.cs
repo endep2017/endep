@@ -79,6 +79,12 @@ namespace endep.Models
         [Display(Name = "Confirmar contraseña")]
         [Compare("Password", ErrorMessage = "La contraseña y la contraseña de confirmación no coinciden.")]
         public string ConfirmPassword { get; set; }
+
+        [Required]
+        [StringLength(50, ErrorMessage = "El número de caracteres de {0} debe ser al menos {2}.", MinimumLength = 3)]
+        [Display(Name = "Nombre")]
+        public string Nombre { set; get; }
+
     }
 
     public class ResetPasswordViewModel

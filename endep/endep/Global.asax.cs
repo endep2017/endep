@@ -80,6 +80,11 @@ namespace endep
             {
                 roleManager.Create(new IdentityRole("Eliminar"));
             }
+
+            if (!roleManager.RoleExists("Jugador"))
+            {
+                roleManager.Create(new IdentityRole("Jugador"));
+            }
         }
 
         //Método que pemite asigar los roles al usuario
@@ -111,6 +116,12 @@ namespace endep
             {
                 userManager.AddToRole(user.Id, "Eliminar");
             }
+
+            if (!userManager.IsInRole(user.Id, "Jugador"))
+            {
+                userManager.AddToRole(user.Id, "Jugador");
+            }
+
         }
 
         #endregion Métodos;

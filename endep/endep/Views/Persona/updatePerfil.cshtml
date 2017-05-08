@@ -1,0 +1,96 @@
+﻿@model endep.Models.Persona.Persona
+
+@{
+    ViewBag.Title = "Crear cuenta";
+}
+
+<!-- page content -->
+<div class="right_col" role="main">
+    <div class="">
+        <div class="row">
+            <div class="col-md-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Información Personal @ViewBag.Mensaje</h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li>
+                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-question"></i></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li>
+                                        @Html.ActionLink("Ayuda", "Index", "Ayuda")
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a class="close-link"><i class="fa fa-close"></i></a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <br />
+                        @using (Html.BeginForm("updatePerfil", "Persona", FormMethod.Post, new { role = "form", @class = "form-horizontal form-label-left input_mask" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            @Html.HiddenFor(model => model.UserId)
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Nombres, htmlAttributes: new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+                                <div class="col-md-6 col-sm-9 col-xs-12">
+                                    @Html.TextBoxFor(m => m.Nombres, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Apellidos, htmlAttributes: new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+                                <div class="col-md-6 col-sm-9 col-xs-12">
+                                    @Html.TextBoxFor(m => m.Apellidos, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Identificacion, htmlAttributes: new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+                                <div class="col-md-6 col-sm-9 col-xs-12">
+                                    @Html.TextBoxFor(m => m.Identificacion, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Sexo, htmlAttributes: new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+                                <div class="col-md-6 col-sm-9 col-xs-12">
+                                    @Html.TextBoxFor(m => m.Sexo, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <br />
+                            <div class="x_title">
+                                <h2>Información de la cuenta</h2>                                
+                                <div class="clearfix"></div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+                                <div class="col-md-6 col-sm-9 col-xs-12">
+                                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                                </div>
+                            </div>                          
+                            <div class="ln_solid"></div>
+                            <div class="form-group">
+                                <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+                                    <input type="submit" value="Actualizar" class="btn btn-success" />
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>            
+        </div>
+
+    </div>
+</div>
+<!-- /page content -->
+@section scripts{
+    @Scripts.Render("~/bundles/customJS")
+}
+
+

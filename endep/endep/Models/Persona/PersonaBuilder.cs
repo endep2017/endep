@@ -25,7 +25,7 @@
 
         #region Métodos Abstractos
 
-        public abstract bool addPersona(Persona persona);
+        public abstract bool addRol(string id);
         //public abstract AspNetUser updatePersona(string id);    
 
         #endregion Métodos Abstractos

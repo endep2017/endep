@@ -14,6 +14,7 @@ namespace endep.Controllers
     public class PersonaController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+               
         // GET: Persona
         public ActionResult Index()
         {
@@ -84,7 +85,7 @@ namespace endep.Controllers
                 Roles = rolesView
             };
             return View(userView);
-        }
+        }        
 
         public ActionResult AddRol(string userId)
         {
@@ -214,6 +215,91 @@ namespace endep.Controllers
 
             return View("Roles", userId);
 
+        }
+
+        //GET: ACTUALIZAR PERFIL        
+        public ActionResult updatePerfil()
+        {
+            //Busqueda del usuario
+            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
+            var users = userManager.Users.ToList();
+            var user = users.Find(u => u.Id == User.Identity.GetUserId());
+
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+
+            var userView = new Persona
+            {               
+                Email = user.Email,
+                Name = user.UserName,
+                UserId = user.Id,
+                Nombres = user.Nombres,
+                Apellidos = user.Apellidos,
+                Identificacion = user.Identificacion,
+                Sexo = user.Sexo                
+            };
+
+            return View(userView);
+
+        }
+
+        [HttpPost]
+        public ActionResult updatePerfil(Persona persona)
+        {
+            ViewBag.Mensaje = "";
+            if (ModelState.IsValid)
+            {
+                //Busqueda del usuario
+                var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
+                var users = manager.Users.ToList();
+                ApplicationUser user = users.Find(u => u.Id == User.Identity.GetUserId());                           
+
+                if (user == null)
+                {
+                    return HttpNotFound();
+                }
+
+                user.Nombres = persona.Nombres;
+                user.Apellidos = persona.Apellidos;
+                user.Identificacion = persona.Identificacion;
+                user.Sexo = persona.Sexo;
+                user.Email = persona.Email;
+                user.UserName = persona.Email;
+                
+                IdentityResult result = manager.Update(user);
+
+                ViewBag.Mensaje = "- Perfil actualizado";
+                return View("updatePerfil");
+            }
+            ViewBag.Mensaje = "- NO se actualizo el perfil";
+            return View("updatePerfil");
+        }
+
+        //GET
+        public ActionResult updatePassword()
+        {            
+            return View("updatePassword");
+        }
+
+        [HttpPost]
+        public ActionResult updatePassword(RegisterViewModel persona)
+        {
+            var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));          
+
+            if (!string.IsNullOrEmpty(persona.ConfirmPassword))
+            {
+                manager.RemovePassword(User.Identity.GetUserId());
+
+                manager.AddPassword(User.Identity.GetUserId(), persona.Password);
+
+                ViewBag.Mensaje = "Contraseña Actualizada";
+                return View("updatePassword");
+            }
+            ViewBag.Mensaje = "- se produjo un error al actualizar la contraseña";
+
+            return View("updatePassword");
         }
 
         protected override void Dispose(bool disposing)

@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - Mi aplicación ASP.NET</title>
+    <title>@ViewBag.Title - Encuentros Deportivos</title>
     @Styles.Render("~/Content/BootstrapCSS")
     @Styles.Render("~/Content/AwesomeCSS")
     @Styles.Render("~/Content/NProgressCSS")    
@@ -13,23 +13,13 @@
 </head>
 <body class="nav-md">
     <div class="container body">
-        <div class="main_container">
-        @using Microsoft.AspNet.Identity
-        @if (Request.IsAuthenticated)
-        {
+        <div class="main_container">      
             <!-- left navigation -->
             @Html.Partial("_LeftNavigation")
             <!-- left navigation -->
             <!-- top navigation -->
             @Html.Partial("_TopNavigation")
-            <!-- /top navigation -->
-        }
-        else
-        {
-            <!-- Inicio menu -->
-            @Html.Partial("_MenuInicio")
-            <!-- /Inicio menu -->
-        }           
+            <!-- /top navigation -->               
             <!-- page content -->
             @RenderBody()
             <!-- /page content -->
@@ -46,7 +36,7 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/BootstrapJS")
     @Scripts.Render("~/bundles/NProgressJS")
-    @RenderSection("scripts", required: false)
+    @RenderSection("scripts", required: false)    
 </body>
 
 </html>
