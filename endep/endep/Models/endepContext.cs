@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Web;
 
@@ -19,6 +20,18 @@ namespace endep.Models
         {
         }
 
-        public System.Data.Entity.DbSet<endep.Models.Persona.Persona> Personas { get; set; }        
+        //protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        //{
+        //    throw new UnintentionalCodeFirstException();
+        //}
+
+        public virtual DbSet<PruebaPersona> PruebaPersona { get; set; }
+        public virtual DbSet<ControlDominio> ControlDominios { get; set; }
+        public virtual DbSet<TipoDocumento> TipoDocumentoes { get; set; }
+        public virtual DbSet<Persona.Persona> Personas { get; set; }
+        public virtual DbSet<LugarGeografico> LugaresGeograficos { set; get; }
+        public virtual DbSet<Equipo> Equipos { set; get; }
+        public virtual DbSet<Posicion> Posiciones { set; get; }
+        public virtual DbSet<IntegranteEquipo> IntegrantesEquipos { set; get; }
     }
 }

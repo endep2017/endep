@@ -1,0 +1,83 @@
+﻿@model IEnumerable<endep.Models.Persona.Persona>
+@{
+    ViewBag.Title = "Eniar Invitación";
+}
+<!-- page content -->
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Enviar invitación para conformar equipo @ViewBag.NombreEquipo</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a href="#">Settings 1</a>
+                            </li>
+                            <li>
+                                <a href="#">Settings 2</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <a class="btn btn-info" href="@Url.Action("Index", "Equipoes")" target="_self"><i class="fa fa-list-ul"></i> Listar Equipos</a>
+                <hr />
+                @foreach (var item in Model)
+                {
+                 <ul class="list-unstyled timeline">
+                    <li>
+                        <div class="block">
+                            <div class="tags">
+                                <a href="" class="tag">
+                                    <span>Jugador</span>
+                                </a>
+                            </div>
+                            <div class="block_content">
+                                <ul class="list-unstyled scroll-view">                                                
+                                        <li class="media event">
+                                            <a class="pull-left border-aero profile_thumb">
+                                                <i class="fa fa-user aero"></i>
+                                            </a>
+                                            <div class="media-body">
+                                                <a class="title" href="#">@Html.DisplayFor(modelItem => item.Nombres) @Html.DisplayFor(modelItem => item.Apellidos)</a>
+                                                <p><strong>@Html.DisplayFor(modelItem => item.DtoResidencia): </strong> @Html.DisplayFor(modelItem => item.CiudadResidencia) </p>
+                                                <p>
+                                                    <a class="btn btn-info btn-xs" href="@Url.Action("EnviarInvitacion", "InvitacionUsuarios", new {idEquipo =  ViewBag.Id, idUsuario = item.UserId})" target="_self" title="Perfil"><i class="fa fa-user"></i> Perfil</a>
+                                                    <a class="btn btn-warning btn-xs" href="@Url.Action("EnviarInvitacion", "InvitacionUsuarios", new {idEquipo =  ViewBag.Id, idUsuario = item.UserId})" target="_self" title="Perfil"><i class="fa fa-send"></i> Invitar</a>                                                     
+                                                </p>
+                                            </div>
+                                        </li>                                               
+                                    </ul>
+                            </div>
+                        </div>
+                    </li>
+                               
+                  </ul>
+                }              
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /page content -->
+@section scripts{
+    @Scripts.Render("~/bundles/customJS")
+}
+
+
+
+
+
+
+
+
+

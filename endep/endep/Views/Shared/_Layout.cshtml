@@ -21,7 +21,11 @@
             @Html.Partial("_TopNavigation")
             <!-- /top navigation -->               
             <!-- page content -->
-            @RenderBody()
+            <div class="right_col" role="main">
+                <div class="">
+                    @RenderBody()
+                </div>
+            </div>          
             <!-- /page content -->
             <!-- footer content -->
             <footer>

@@ -173,26 +173,68 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AyudaController.cs" />
+    <Compile Include="Controllers\ControlDominiosController.cs" />
+    <Compile Include="Controllers\EquipoesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InicioController.cs" />
+    <Compile Include="Controllers\IntegranteEquipoesController.cs" />
+    <Compile Include="Controllers\InvitacionUsuariosController.cs" />
+    <Compile Include="Controllers\LugarGeograficoesController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MensajeriaController.cs" />
     <Compile Include="Controllers\PersonaController.cs" />
+    <Compile Include="Controllers\PosicionsController.cs" />
+    <Compile Include="Controllers\PruebaPersonasController.cs" />
+    <Compile Include="Controllers\TipoDocumentoesController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201705121803152_InitialCreate.cs" />
+    <Compile Include="Migrations\201705121803152_InitialCreate.Designer.cs">
+      <DependentUpon>201705121803152_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705122115564_Migracion120517.cs" />
+    <Compile Include="Migrations\201705122115564_Migracion120517.Designer.cs">
+      <DependentUpon>201705122115564_Migracion120517.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705122357448_Migracion120517-1857.cs" />
+    <Compile Include="Migrations\201705122357448_Migracion120517-1857.Designer.cs">
+      <DependentUpon>201705122357448_Migracion120517-1857.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705130039317_Migracion120517-1939.cs" />
+    <Compile Include="Migrations\201705130039317_Migracion120517-1939.Designer.cs">
+      <DependentUpon>201705130039317_Migracion120517-1939.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705132301445_Migracion130517-1801.cs" />
+    <Compile Include="Migrations\201705132301445_Migracion130517-1801.Designer.cs">
+      <DependentUpon>201705132301445_Migracion130517-1801.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705141807598_Migracion140517-1306.cs" />
+    <Compile Include="Migrations\201705141807598_Migracion140517-1306.Designer.cs">
+      <DependentUpon>201705141807598_Migracion140517-1306.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\ControlDominios.cs" />
     <Compile Include="Models\endepContext.cs" />
+    <Compile Include="Models\Equipo.cs" />
     <Compile Include="Models\Evento.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\IntegranteEquipo.cs" />
+    <Compile Include="Models\LugarGeografico.cs" />
     <Compile Include="Models\Persona\DirectorTecnico.cs" />
     <Compile Include="Models\Persona\Jugador.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Persona\Mensajeria.cs" />
     <Compile Include="Models\Persona\Persona.cs" />
     <Compile Include="Models\Persona\PersonaBuilder.cs" />
     <Compile Include="Models\Persona\PersonaDirector.cs" />
     <Compile Include="Models\Persona\Usuario.cs" />
+    <Compile Include="Models\Posicion.cs" />
+    <Compile Include="Models\PruebaPersona.cs" />
     <Compile Include="Models\Rol.cs" />
+    <Compile Include="Models\TipoDocumento.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -4597,6 +4639,44 @@
     <Content Include="Views\Persona\updatePerfil.cshtml" />
     <Content Include="Views\Ayuda\Index.cshtml" />
     <Content Include="Views\Persona\updatePassword.cshtml" />
+    <Content Include="Views\ControlDominios\Create.cshtml" />
+    <Content Include="Views\ControlDominios\Delete.cshtml" />
+    <Content Include="Views\ControlDominios\Details.cshtml" />
+    <Content Include="Views\ControlDominios\Edit.cshtml" />
+    <Content Include="Views\ControlDominios\Index.cshtml" />
+    <Content Include="Views\TipoDocumentoes\Create.cshtml" />
+    <Content Include="Views\TipoDocumentoes\Delete.cshtml" />
+    <Content Include="Views\TipoDocumentoes\Details.cshtml" />
+    <Content Include="Views\TipoDocumentoes\Edit.cshtml" />
+    <Content Include="Views\TipoDocumentoes\Index.cshtml" />
+    <Content Include="Views\PruebaPersonas\Create.cshtml" />
+    <Content Include="Views\PruebaPersonas\Delete.cshtml" />
+    <Content Include="Views\PruebaPersonas\Details.cshtml" />
+    <Content Include="Views\PruebaPersonas\Edit.cshtml" />
+    <Content Include="Views\PruebaPersonas\Index.cshtml" />
+    <Content Include="Views\LugarGeograficoes\Create.cshtml" />
+    <Content Include="Views\LugarGeograficoes\Delete.cshtml" />
+    <Content Include="Views\LugarGeograficoes\Details.cshtml" />
+    <Content Include="Views\LugarGeograficoes\Edit.cshtml" />
+    <Content Include="Views\LugarGeograficoes\Index.cshtml" />
+    <Content Include="Views\Posicions\Create.cshtml" />
+    <Content Include="Views\Posicions\Delete.cshtml" />
+    <Content Include="Views\Posicions\Details.cshtml" />
+    <Content Include="Views\Posicions\Edit.cshtml" />
+    <Content Include="Views\Posicions\Index.cshtml" />
+    <Content Include="Views\Equipoes\Create.cshtml" />
+    <Content Include="Views\Equipoes\Delete.cshtml" />
+    <Content Include="Views\Equipoes\Details.cshtml" />
+    <Content Include="Views\Equipoes\Edit.cshtml" />
+    <Content Include="Views\Equipoes\Index.cshtml" />
+    <Content Include="Views\IntegranteEquipoes\Create.cshtml" />
+    <Content Include="Views\IntegranteEquipoes\Delete.cshtml" />
+    <Content Include="Views\IntegranteEquipoes\Details.cshtml" />
+    <Content Include="Views\IntegranteEquipoes\Edit.cshtml" />
+    <Content Include="Views\IntegranteEquipoes\Index.cshtml" />
+    <Content Include="Views\InvitacionUsuarios\Index.cshtml" />
+    <Content Include="Views\InvitacionUsuarios\ConfirmacionEnvio.cshtml" />
+    <Content Include="Views\Mensajeria\RespuestaJugador.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -4616,6 +4696,26 @@
   <ItemGroup>
     <TypeScriptCompile Include="vendors\devbridge-autocomplete\src\jquery.autocomplete.d.ts" />
     <TypeScriptCompile Include="vendors\moment\moment.d.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201705121803152_InitialCreate.resx">
+      <DependentUpon>201705121803152_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705122115564_Migracion120517.resx">
+      <DependentUpon>201705122115564_Migracion120517.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705122357448_Migracion120517-1857.resx">
+      <DependentUpon>201705122357448_Migracion120517-1857.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705130039317_Migracion120517-1939.resx">
+      <DependentUpon>201705130039317_Migracion120517-1939.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705132301445_Migracion130517-1801.resx">
+      <DependentUpon>201705132301445_Migracion130517-1801.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705141807598_Migracion140517-1306.resx">
+      <DependentUpon>201705141807598_Migracion140517-1306.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

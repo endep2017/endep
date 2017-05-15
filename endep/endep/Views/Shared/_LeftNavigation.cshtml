@@ -37,9 +37,23 @@
                         <li>
                             <a><i class="fa fa-edit"></i> Administración <span class="fa fa-chevron-down"></span></a>
                             <ul class="nav child_menu">
-                                <li>@Html.ActionLink("Usuarios", "Index", "Persona")</li>                                
+                                <li>@Html.ActionLink("Usuarios", "Index", "Persona")</li>
+                                <li>@Html.ActionLink("Dominios", "Index", "ControlDominios")</li>                                
+                                <li>@Html.ActionLink("Lugares", "Index", "LugarGeograficoes")</li>
+                                <li>@Html.ActionLink("Posiciones", "Index", "Posicions")</li>
                             </ul>
                         </li>
+                        <li>
+                            <a><i class="fa fa-edit"></i> Equipos <span class="fa fa-chevron-down"></span></a>
+                            <ul class="nav child_menu">
+                               <li>@Html.ActionLink("Equipos", "Index", "Equipoes")</li>
+                                @*<li>@Html.ActionLink("Dominios", "Index", "ControlDominios")</li>
+    <li>@Html.ActionLink("Lugares", "Index", "LugarGeograficoes")</li>
+    <li>@Html.ActionLink("Posiciones", "Index", "Posicions")</li>*@
+                            </ul>
+                        </li>
+
+
                         @*<li>
                             <a><i class="fa fa-desktop"></i> UI Elements <span class="fa fa-chevron-down"></span></a>
                             <ul class="nav child_menu">

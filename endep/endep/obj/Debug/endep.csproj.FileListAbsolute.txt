@@ -86,3 +86,10 @@ C:\Users\Soporte\Source\Repos\endep\endep\endep\bin\es\Microsoft.Owin.Security.M
 C:\Users\Soporte\Source\Repos\endep\endep\endep\obj\Debug\endep.dll
 C:\Users\Soporte\Source\Repos\endep\endep\endep\obj\Debug\endep.pdb
 C:\Users\Soporte\Source\Repos\endep\endep\endep\obj\Debug\endep.csprojResolveAssemblyReference.cache
+C:\Users\Soporte\Source\Repos\endep\endep\endep\obj\Debug\endep.Migrations.InitialCreate.resources
+C:\Users\Soporte\Source\Repos\endep\endep\endep\obj\Debug\endep.csproj.GenerateResource.Cache
+C:\Users\Soporte\Source\Repos\endep\endep\endep\obj\Debug\endep.Migrations.Migracion120517.resources
+C:\Users\Soporte\Source\Repos\endep\endep\endep\obj\Debug\endep.Migrations.Migracion1205171857.resources
+C:\Users\Soporte\Source\Repos\endep\endep\endep\obj\Debug\endep.Migrations.Migracion1205171939.resources
+C:\Users\Soporte\Source\Repos\endep\endep\endep\obj\Debug\endep.Migrations.Migracion1305171801.resources
+C:\Users\Soporte\Source\Repos\endep\endep\endep\obj\Debug\endep.Migrations.Migracion1405171306.resources

@@ -85,6 +85,16 @@ namespace endep
             {
                 roleManager.Create(new IdentityRole("Jugador"));
             }
+
+            if (!roleManager.RoleExists("Director Tecnico"))
+            {
+                roleManager.Create(new IdentityRole("Director Tecnico"));
+            }
+
+            if (!roleManager.RoleExists("Organizador de Torneo"))
+            {
+                roleManager.Create(new IdentityRole("Organizador de Torneo"));
+            }
         }
 
         //Método que pemite asigar los roles al usuario
@@ -117,9 +127,14 @@ namespace endep
                 userManager.AddToRole(user.Id, "Eliminar");
             }
 
-            if (!userManager.IsInRole(user.Id, "Jugador"))
+            if (!userManager.IsInRole(user.Id, "Director Tecnico"))
             {
-                userManager.AddToRole(user.Id, "Jugador");
+                userManager.AddToRole(user.Id, "Director Tecnico");
+            }
+
+            if (!userManager.IsInRole(user.Id, "Organizador de Torneo"))
+            {
+                userManager.AddToRole(user.Id, "Organizador de Torneo");
             }
 
         }

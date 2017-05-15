@@ -12,22 +12,40 @@
                 {
                     @Html.AntiForgeryToken()      
 
-                    @Html.ValidationSummary("", new { @class = "text-danger" })
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })                    
 
                         <div class="col-xs-12 col-sm-12 col-md-12">
-                            @Html.TextBoxFor(m => m.Nombre, new { @class = "form-control", @placeholder = "Primer Nombre" })
+                            @Html.ValidationMessageFor(model => model.Nombres, "", new { @class = "text-danger" })
+                            @Html.TextBoxFor(m => m.Nombres, new { @class = "form-control", @placeholder = "Nombres" })                            
                         </div>
 
                         <div class="col-xs-12 col-sm-12 col-md-12">
+                            @Html.ValidationMessageFor(model => model.Apellidos, "", new { @class = "text-danger" })
+                            @Html.TextBoxFor(m => m.Apellidos, new { @class = "form-control", @placeholder = "Apellidos" })                            
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <span class="text-danger">@ViewBag.Error</span>
+                            @Html.DropDownList("DominioId", null, htmlAttributes: new { @class = "form-control", @style = "margin-bottom: 19px;" })  
+                            
+                        </div>                        
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            @Html.ValidationMessageFor(model => model.Identificacion, "", new { @class = "text-danger" })
+                            @Html.TextBoxFor(m => m.Identificacion, new { @class = "form-control", @placeholder = "Número de identificación" })                            
+                        </div>
+
+                        <div class="col-xs-12 col-sm-12 col-md-12">                            
+                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
                             @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = "Email" })
                         </div>            
                         
                         <div class="col-xs-12 col-sm-12 col-md-12">
-                            @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Password" })
+                            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Password" })                            
                         </div>         
                         
                         <div class="col-xs-12 col-sm-12 col-md-12">
-                            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", @placeholder = "Confirmar Password" })
+                            @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+                            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", @placeholder = "Confirmar Password" })                            
                         </div>      
         
                         <div class="col-md-offset-2 col-md-10">

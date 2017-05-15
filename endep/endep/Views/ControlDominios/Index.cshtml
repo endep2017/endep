@@ -1,0 +1,68 @@
+﻿@model IEnumerable<endep.Models.ControlDominio>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+        <h2>Index</h2>
+
+        <p>
+            @Html.ActionLink("Create New", "Create")
+        </p>
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.DominioId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Descripcion)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PadreId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.vigente)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Abreviatura)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Observacion)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DominioId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Descripcion)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PadreId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.vigente)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Abreviatura)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Observacion)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.DominioId }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.DominioId }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.DominioId })
+                    </td>
+                </tr>
+            }
+        </table>
+    
+<!-- /page content -->
+@section scripts{
+    @Scripts.Render("~/bundles/customJS")
+}   

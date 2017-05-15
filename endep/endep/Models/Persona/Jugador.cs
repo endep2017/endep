@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -13,14 +15,23 @@ namespace endep.Models.Persona
         {
             try
             {
-                db.Personas.Add(persona);
-                db.SaveChanges();
+                ApplicationDbContext db = new ApplicationDbContext();
+
+                //Obtener los usuarios            
+                var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
+                //Obtener los roles
+                var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(db));
+
+                if (!userManager.IsInRole(id, "Jugador"))
+                {
+                    userManager.AddToRole(id, "Jugador");
+                }
                 return true;
             }
 
             catch (Exception e)
             {
-                Console.WriteLine("{0} Exception caught.", e);
+                
             }
             return false;
         }

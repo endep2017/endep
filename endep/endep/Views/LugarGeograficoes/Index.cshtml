@@ -1,0 +1,48 @@
+﻿@model IEnumerable<endep.Models.LugarGeografico>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.LugarId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Descripcion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PadreId)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.LugarId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Descripcion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PadreId)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.LugarId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.LugarId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.LugarId })
+        </td>
+    </tr>
+}
+
+</table>
+@section scripts{
+    @Scripts.Render("~/bundles/customJS")
+}

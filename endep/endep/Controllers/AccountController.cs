@@ -11,6 +11,7 @@ using Microsoft.Owin.Security;
 using endep.Models;
 using endep.Models.Persona;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Collections.Generic;
 
 namespace endep.Controllers
 {
@@ -141,6 +142,13 @@ namespace endep.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
+
+            endepContext db = new endepContext();
+            var list = db.ControlDominios.ToList();
+            list.Add( new ControlDominio { DominioId  = 0, Descripcion = "--- Tipo Documento ---", PadreId = "1" });
+            var res = from ctr in list where ctr.PadreId == "1" orderby ctr.DominioId ascending select ctr;
+            ViewBag.DominioId = new SelectList(res, "DominioId", "Descripcion");
+
             return View("Register", "_LayoutLogin");
         }
 
@@ -151,83 +159,35 @@ namespace endep.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
+            var DominioId = Request["DominioId"];
+
+            endepContext dominio = new endepContext();
+            
+
+            if (DominioId == "0")
+            {
+                var list = dominio.ControlDominios.ToList();
+                list.Add(new ControlDominio { DominioId = 0, Descripcion = "--- Tipo Documento ---", PadreId = "1" });
+                var res = from ctr in list where ctr.PadreId == "1" orderby ctr.DominioId ascending select ctr;
+                ViewBag.DominioId = new SelectList(res, "DominioId", "Descripcion", 0);
+                ViewBag.Error = "Seleccion un Tipo de Documento";
+            }
+
+
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, Nombres = model.Nombre };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, Nombres = model.Nombres, Apellidos = model.Apellidos, TipoDocumento = model.DominioId };
                 var result = await UserManager.CreateAsync(user, model.Password);
 
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);                    
 
-
-
-                    //Crear el rol del usuario, por defecto el rol asignado es "Jugador"
-
-                    ApplicationDbContext db = new ApplicationDbContext();
-
-                    //Obtener los usuarios            
-                    var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
-                    //Obtener los roles
-                    var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(db));                    
-
-                    if (!userManager.IsInRole(user.Id, "Jugador"))
-                    {
-                        userManager.AddToRole(user.Id, "Jugador");
-                    }
-
-                    string valor = user.Id;
-
-                    bool resul = false;  
-
-
+                   //Construir rol a persona
                     PersonaDirector persona = new PersonaDirector();                  
                     PersonaBuilder jugador = new Jugador();
-
                     persona.setPersonaBuilder(jugador);
-                    resul = persona.construirRol(user.Id);
-
-                    if (resul)
-                    {
-                        return RedirectToAction("Index");
-                    }
-
-
-
-
-
-
-
-                   
-
-                    //var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
-                    //var users = userManager.Users.ToList();
-                    //var usuario = users.Find(u => u.Id == User.Identity.GetUserId());
-
-
-
-
-                    //var userView = new Persona
-                    //{
-                    //    Email = user.Email,
-                    //    Name = user.UserName,
-                    //    UserId = user.Id,
-                    //    Nombres = user.Nombres,
-                    //    Apellidos = user.Apellidos
-                    //};
-                    //return View(userView);
-
-
-
-                
-
-
-
-
-
-
-
-
+                    persona.construirRol(user.Id);
 
                     // Para obtener más información sobre cómo habilitar la confirmación de cuenta y el restablecimiento de contraseña, visite http://go.microsoft.com/fwlink/?LinkID=320771
                     // Enviar correo electrónico con este vínculo
@@ -240,7 +200,17 @@ namespace endep.Controllers
                 AddErrors(result);
             }
 
+
             // Si llegamos a este punto, es que se ha producido un error y volvemos a mostrar el formulario
+
+
+            var lista = dominio.ControlDominios.ToList();
+            lista.Add(new ControlDominio { DominioId = 0, Descripcion = "--- Tipo Documento ---", PadreId = "1" });
+            var res2 = from ctr in lista where ctr.PadreId == "1" orderby ctr.DominioId ascending select ctr;
+
+            ViewBag.DominioId = new SelectList(res2, "DominioId", "Descripcion", DominioId);               
+            
+          
             return View("Register", "_LayoutLogin", model);
         }
 

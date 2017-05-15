@@ -4,13 +4,12 @@
     ViewBag.Title = "Crear cuenta";
 }
 
+
 <!-- page content -->
-<div class="right_col" role="main">
-    <div class="">
         <div class="row">
             <div class="col-md-12 col-xs-12">
                 <div class="x_panel">
-                    <div class="x_title">
+                    <div class="x_title">                       
                         <h2>Información Personal @ViewBag.Mensaje</h2>
                         <ul class="nav navbar-right panel_toolbox">
                             <li>
@@ -30,7 +29,7 @@
                         </ul>
                         <div class="clearfix"></div>
                     </div>
-                    <div class="x_content">
+                    <div class="x_content">                       
                         <br />
                         @using (Html.BeginForm("updatePerfil", "Persona", FormMethod.Post, new { role = "form", @class = "form-horizontal form-label-left input_mask" }))
                         {
@@ -59,9 +58,33 @@
                             <div class="form-group">
                                 @Html.LabelFor(model => model.Sexo, htmlAttributes: new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
                                 <div class="col-md-6 col-sm-9 col-xs-12">
-                                    @Html.TextBoxFor(m => m.Sexo, new { @class = "form-control" })
+                                    @Html.DropDownList("Sexo", null, htmlAttributes: new { @class = "form-control"})  
                                 </div>
                             </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.PaisResidencia, htmlAttributes: new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+                                <div class="col-md-6 col-sm-9 col-xs-12">
+                                    @Html.DropDownList("Pais", ViewData["Pais"] as List<SelectListItem>, htmlAttributes: new { @class = "form-control", @id = "Pais"})
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.DtoResidencia, htmlAttributes: new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+                                <div class="col-md-6 col-sm-9 col-xs-12">
+                                    @Html.DropDownList("Departamento", null, htmlAttributes: new { @class = "form-control", @id = "idDepartamento" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.CiudadResidencia, htmlAttributes: new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+                                <div class="col-md-6 col-sm-9 col-xs-12">
+                                    @Html.DropDownList("Municipio", null, htmlAttributes: new { @class = "form-control", @id = "idMunicipio" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.FechaNacimiento, htmlAttributes: new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+                                <div class="col-md-6 col-sm-9 col-xs-12">
+                                    @Html.TextBoxFor(m => m.FechaNacimiento, new { @class = "form-control" })
+                                </div>
+                            </div>                           
                             <br />
                             <div class="x_title">
                                 <h2>Información de la cuenta</h2>                                
@@ -85,12 +108,80 @@
                 </div>
             </div>            
         </div>
-
-    </div>
-</div>
 <!-- /page content -->
 @section scripts{
-    @Scripts.Render("~/bundles/customJS")
+
+<script type="text/javascript">
+    $(document).ready( function (){
+        $("#Pais").change(function () {
+            var valor = document.getElementById("Pais").value;
+            $("#idDepartamento").empty();
+            var urlDatos = "@Url.Action("GetDepartamento", "Persona")" + "/" +valor;
+            
+            $.ajax({
+                type: 'POST',
+                url: urlDatos,
+                dataType: 'json',
+                data: { id: $("#Pais").val() },
+
+                success: function (departamentos) {
+                    $.each(departamentos, function (i, departamento) {
+                        $("#idDepartamento").append('<option value="'+ departamento.Value +'">' + departamento.Text + '</option>');
+                    });
+                },
+                error: function (ex) {
+                    alert('Fallo al traer los registros' + ex);
+                }
+            })
+
+        })
+
+        //COnsultar los municipios
+
+        $("#idDepartamento").change(function () {
+            var valor = document.getElementById("idDepartamento").value;
+            $("#idMunicipio").empty();
+            var urlDatos = "@Url.Action("GetMunicipios", "Persona")" + "/" +valor;         
+
+            $.ajax({
+                type: 'POST',
+                url: urlDatos,
+                dataType: 'json',
+                data: { id: $("#idDepartamento").val() },
+
+                success: function (municipios) {
+                    $.each(municipios, function (i, municipio) {
+                        $("#idMunicipio").append('<option value="' + municipio.Value + '">' + municipio.Text + '</option>');
+                    });
+                },
+                error: function (ex) {
+                    alert('Fallo al traer los registros' + ex);
+                }
+            })
+
+        })
+
+    });
+</script>
+
+    @Scripts.Render("~/bundles/FastClickJS")
+    @Scripts.Render("~/bundles/bootstrapProgressbarJS")
+    @Scripts.Render("~/bundles/iCheckJS")
+    @Scripts.Render("~/bundles/bootstrapDaterangepickerJS")
+    @Scripts.Render("~/bundles/bootstrapWysiwygJS")
+    @Scripts.Render("~/bundles/tagsinputJS")
+    @Scripts.Render("~/bundles/SwitcheryJS")
+    @Scripts.Render("~/bundles/Select2JS")
+    @Scripts.Render("~/bundles/ParsleyJS")
+    @Scripts.Render("~/bundles/AutosizeJS")
+    @Scripts.Render("~/bundles/autocompleteJS")
+    @Scripts.Render("~/bundles/starrrJS")
+    @Scripts.Render("~/bundles/customJS")    
 }
-
-
+@section css{
+    @Styles.Render("~/Content/iCheckCSS")
+    @Styles.Render("~/Content/Select2CSS")
+    @Styles.Render("~/Content/SwitcheryCSS")
+    @Styles.Render("~/Content/starrrCSS")
+    @Styles.Render("~/Content/bootstrapDaterangepickerCSS")
+}

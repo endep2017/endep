@@ -220,6 +220,7 @@ namespace endep.Controllers
         //GET: ACTUALIZAR PERFIL        
         public ActionResult updatePerfil()
         {
+
             //Busqueda del usuario
             var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
             var users = userManager.Users.ToList();
@@ -238,17 +239,41 @@ namespace endep.Controllers
                 Nombres = user.Nombres,
                 Apellidos = user.Apellidos,
                 Identificacion = user.Identificacion,
-                Sexo = user.Sexo                
+                Sexo = user.Sexo,
+                PaisResidencia = user.PaisResidencia,
+                DtoResidencia = user.DtoResidencia,
+                CiudadResidencia = user.CiudadResidencia,
+                FechaNacimiento = user.FechaNacimiento                
             };
 
-            return View(userView);
+            endepContext datos = new endepContext();                        
+            var list = datos.ControlDominios.ToList();
+            //list.Add(new ControlDominio { DominioId = 0, Descripcion = "--- Sexo ---", PadreId = "4" });
+            var res = from ctr in list where ctr.PadreId == "4" orderby ctr.DominioId ascending select ctr;
+            ViewBag.Sexo = new SelectList(res, "Descripcion", "Descripcion", user.Sexo);
 
+           
+            var list2 = datos.LugaresGeograficos.ToList();
+            list2.Add(new LugarGeografico { LugarId = 0, Descripcion = "--- Seleccione un Pais ---", PadreId = 0 });
+            var res2 = from ctr in list2 where ctr.PadreId == 0 orderby ctr.LugarId ascending select ctr;
+            ViewData["Pais"] = new SelectList(res2, "LugarId", "Descripcion", user.PaisResidencia);
+
+            var list3 = datos.LugaresGeograficos.ToList();           
+            var res3 = from ctr in list3 where ctr.PadreId == Convert.ToInt32(user.PaisResidencia) orderby ctr.LugarId ascending select ctr;
+            ViewBag.Departamento = new SelectList(res3, "LugarId", "Descripcion", user.DtoResidencia);
+
+            var list4 = datos.LugaresGeograficos.ToList();
+            var res4 = from ctr in list4 where ctr.PadreId == Convert.ToInt32(user.DtoResidencia) orderby ctr.LugarId ascending select ctr;
+            ViewBag.Municipio = new SelectList(res4, "LugarId", "Descripcion", user.CiudadResidencia);
+            
+            return View(userView);
         }
 
         [HttpPost]
         public ActionResult updatePerfil(Persona persona)
         {
-            ViewBag.Mensaje = "";
+            ViewBag.Mensaje = ""; 
+
             if (ModelState.IsValid)
             {
                 //Busqueda del usuario
@@ -267,12 +292,39 @@ namespace endep.Controllers
                 user.Sexo = persona.Sexo;
                 user.Email = persona.Email;
                 user.UserName = persona.Email;
-                
-                IdentityResult result = manager.Update(user);
+                user.PaisResidencia = Request["Pais"];
+                user.DtoResidencia = Request["Departamento"];
+                user.CiudadResidencia = Request["Municipio"];
+                user.FechaNacimiento = persona.FechaNacimiento;
 
-                ViewBag.Mensaje = "- Perfil actualizado";
+                IdentityResult result = manager.Update(user);              
+
+
+                endepContext datos = new endepContext();
+                var list = datos.ControlDominios.ToList();
+                //list.Add(new ControlDominio { DominioId = 0, Descripcion = "--- Sexo ---", PadreId = "4" });
+                var res = from ctr in list where ctr.PadreId == "4" orderby ctr.DominioId ascending select ctr;
+                ViewBag.Sexo = new SelectList(res, "Descripcion", "Descripcion", persona.Sexo);
+
+                var list2 = datos.LugaresGeograficos.ToList();
+                list2.Add(new LugarGeografico { LugarId = 0, Descripcion = "--- Seleccione un Pais ---", PadreId = 0 });
+                var res2 = from ctr in list2 where ctr.PadreId == 0 orderby ctr.LugarId ascending select ctr;
+                ViewData["Pais"] = new SelectList(res2, "LugarId", "Descripcion", user.PaisResidencia);
+
+                var list3 = datos.LugaresGeograficos.ToList();
+                var res3 = from ctr in list3 where ctr.LugarId == Convert.ToInt32(user.DtoResidencia) orderby ctr.LugarId ascending select ctr;
+                ViewBag.Departamento = new SelectList(res3, "LugarId", "Descripcion", user.DtoResidencia);
+
+                var list4 = datos.LugaresGeograficos.ToList();
+                var res4 = from ctr in list4 where ctr.LugarId == Convert.ToInt32(user.CiudadResidencia) orderby ctr.LugarId ascending select ctr;
+                ViewBag.Municipio = new SelectList(res4, "LugarId", "Descripcion", user.CiudadResidencia);
+
+                ViewBag.Mensaje = " - Perfil actualizado";
+
                 return View("updatePerfil");
-            }
+            }       
+
+
             ViewBag.Mensaje = "- NO se actualizo el perfil";
             return View("updatePerfil");
         }
@@ -301,6 +353,25 @@ namespace endep.Controllers
 
             return View("updatePassword");
         }
+
+        public JsonResult GetDepartamento(int id)
+        {        
+            endepContext datos = new endepContext();
+            var list = datos.LugaresGeograficos.ToList();
+            //list.Add(new ControlDominio { DominioId = 0, Descripcion = "--- Sexo ---", PadreId = "1" });
+            var res = from ctr in list where ctr.PadreId == id orderby ctr.LugarId ascending select ctr;
+            return Json(new SelectList(res, "LugarId", "Descripcion"));
+        }
+
+        public JsonResult GetMunicipios(int id)
+        {
+            endepContext datos = new endepContext();
+            var list = datos.LugaresGeograficos.ToList();
+            //list.Add(new ControlDominio { DominioId = 0, Descripcion = "--- Sexo ---", PadreId = "1" });
+            var res = from ctr in list where ctr.PadreId == id orderby ctr.LugarId ascending select ctr;
+            return Json(new SelectList(res, "LugarId", "Descripcion"));
+        }
+
 
         protected override void Dispose(bool disposing)
         {

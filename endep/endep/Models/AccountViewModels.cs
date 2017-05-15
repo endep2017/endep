@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace endep.Models
 {
@@ -64,6 +65,21 @@ namespace endep.Models
 
     public class RegisterViewModel
     {
+        [Required(ErrorMessage = "Debe introducir los nombres")]
+        [Display(Name = "Nombres")]
+        public string Nombres { set; get; }
+
+        [Required(ErrorMessage = "Debe ingresar los apellidos")]
+        [Display(Name = "Apellidos")]
+        public string Apellidos { set; get; }
+              
+        public int DominioId { set; get; } 
+
+        [Required(ErrorMessage = "Ingresar un número de identificación")]
+        [Display(Name = "Identificación")]
+        [Range(0, long.MaxValue, ErrorMessage = "Debe ingresar un valor numerico")]
+        public string Identificacion { set; get; }
+
         [Required]
         [EmailAddress]
         [Display(Name = "Correo electrónico")]
@@ -77,13 +93,8 @@ namespace endep.Models
 
         [DataType(DataType.Password)]
         [Display(Name = "Confirmar contraseña")]
-        [Compare("Password", ErrorMessage = "La contraseña y la contraseña de confirmación no coinciden.")]
-        public string ConfirmPassword { get; set; }
-
-        [Required]
-        [StringLength(50, ErrorMessage = "El número de caracteres de {0} debe ser al menos {2}.", MinimumLength = 3)]
-        [Display(Name = "Nombre")]
-        public string Nombre { set; get; }
+        [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "La contraseña y la contraseña de confirmación no coinciden.")]
+        public string ConfirmPassword { get; set; }     
 
     }
 
@@ -102,7 +113,7 @@ namespace endep.Models
 
         [DataType(DataType.Password)]
         [Display(Name = "Confirmar contraseña")]
-        [Compare("Password", ErrorMessage = "La contraseña y la contraseña de confirmación no coinciden.")]
+        [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "La contraseña y la contraseña de confirmación no coinciden.")]
         public string ConfirmPassword { get; set; }
 
         public string Code { get; set; }
